@@ -1,4 +1,10 @@
-plugins {
+import os
+def w(p,c):
+    os.makedirs(os.path.dirname(p) or ".", exist_ok=True)
+    open(p,"w").write(c)
+    print("fixed",p)
+
+w("app/build.gradle.kts", """plugins {
     id("com.android.application") version "8.3.2"
     id("org.jetbrains.kotlin.android") version "1.9.22"
     id("org.jetbrains.kotlin.plugin.parcelize") version "1.9.22"
@@ -19,3 +25,22 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }
+""")
+
+w(".github/workflows/build.yml", """name: Build Nora Tunnel APK
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: \'temurin\', java-version: \'17\' }
+      - uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 8.7
+      - name: Build APK
+        run: gradle assembleDebug --stacktrace
+      - uses: actions/upload-artifact@v4
+        with: { name: Nora-Tunnel-APK, path: app/build/outputs/apk/debug/*.apk }
+""")
