@@ -1,0 +1,3 @@
+
+package com.nora.tunnel.ui.screens.home; import androidx.compose.foundation.layout.*; import androidx.compose.material3.*; import androidx.compose.runtime.Composable; import androidx.compose.ui.Alignment; import androidx.compose.ui.Modifier; import androidx.compose.ui.unit.dp
+@Composable fun HomeScreen(){ Column(Modifier.fillMaxSize().padding(16.dp), Arrangement.Center, Alignment.CenterHorizontally){ Text("NORA TUNNEL", style=MaterialTheme.typography.headlineMedium); Text("Secure. Private. Connected.", style=MaterialTheme.typography.labelSmall); Spacer(Modifier.height(24.dp)); Text("● DISCONNECTED"); Button(onClick={}){ Text("CONNECT") } } }
