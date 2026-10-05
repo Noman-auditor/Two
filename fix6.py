@@ -1,4 +1,28 @@
-plugins {
+import os
+def w(p,c):
+    os.makedirs(os.path.dirname(p) or ".", exist_ok=True)
+    open(p,"w").write(c)
+    print("fixed",p)
+
+w("app/src/main/java/com/nora/tunnel/data/database/Converters.kt", """package com.nora.tunnel.data.database
+import androidx.room.TypeConverter
+import com.nora.tunnel.core.model.Core
+import com.nora.tunnel.core.model.Protocol
+import com.nora.tunnel.core.model.Security
+import com.nora.tunnel.core.model.Transport
+object Converters {
+    @TypeConverter @JvmStatic fun fromProtocol(v: Protocol) = v.name
+    @TypeConverter @JvmStatic fun toProtocol(v: String) = Protocol.valueOf(v)
+    @TypeConverter @JvmStatic fun fromCore(v: Core) = v.name
+    @TypeConverter @JvmStatic fun toCore(v: String) = Core.valueOf(v)
+    @TypeConverter @JvmStatic fun fromTransport(v: Transport) = v.name
+    @TypeConverter @JvmStatic fun toTransport(v: String) = Transport.valueOf(v)
+    @TypeConverter @JvmStatic fun fromSecurity(v: Security) = v.name
+    @TypeConverter @JvmStatic fun toSecurity(v: String) = Security.valueOf(v)
+}
+""")
+
+w("app/build.gradle.kts", """plugins {
     id("com.android.application") version "8.3.2"
     id("org.jetbrains.kotlin.android") version "1.9.22"
     id("org.jetbrains.kotlin.plugin.parcelize") version "1.9.22"
@@ -28,3 +52,4 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }
+""")
