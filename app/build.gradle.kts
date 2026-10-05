@@ -1,4 +1,4 @@
-plugins { id("com.android.application"); id("org.jetbrains.kotlin.android"); id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22"; id("com.google.devtools.ksp") version "1.9.22-1.0.17" }
+plugins { id("com.android.application"); id("org.jetbrains.kotlin.android"); id("org.jetbrains.kotlin.plugin.parcelize") version "1.9.22"; id("org.jetbrains.kotlin.plugin.serialization") version "1.9.22"; id("com.google.devtools.ksp") version "1.9.22-1.0.17" }
 android { namespace = "com.nora.tunnel"; compileSdk = 34; defaultConfig { applicationId = "com.nora.tunnel"; minSdk = 29; targetSdk = 34; versionCode = 1; versionName = "1.0.0" }; buildFeatures { compose = true }; composeOptions { kotlinCompilerExtensionVersion = "1.5.8" }; kotlinOptions { jvmTarget = "17" }; packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } } }
 dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
